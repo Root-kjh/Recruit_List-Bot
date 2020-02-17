@@ -42,4 +42,4 @@ for temp_list in company_list:
     temp_list.append(info_list)
 
 for company in company_list:
-    print(company)                                          
+    print(company)
