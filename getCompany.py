@@ -20,14 +20,14 @@ for temp_list in company_list:
     info_list=list()
     print(temp_list[0])
 
-    #사람인
+    # #사람인
     # try:
     #     bsObject=BeautifulSoup(requests.urlopen("http://www.saramin.co.kr/zf_user/search/company?searchword="+parse.quote(temp_list[0])))
     #     info_list.append("http://www.saramin.co.kr"+bsObject.find("a",{'class':'company_popup'}).get('href'))
     # except:
     #     info_list.append("")
     
-    #잡플레닛
+    # #잡플레닛
     # try:
     #     bsObject=BeautifulSoup(requests.get("https://www.jobplanet.co.kr/search?query="+parse.quote(temp_list[0]),headers=headers).text)
     #     info_list.append("http://www.jobplanet.co.kr"+bsObject.find("a",{'class':'tit'}).get('href'))
@@ -35,7 +35,7 @@ for temp_list in company_list:
     #     print(e)
     #     info_list.append("")
 
-    #잡코리아
+    # #잡코리아
     # try:
     #     bsObject=BeautifulSoup(requests.get("http://www.jobkorea.co.kr/Search/?stext="+parse.quote(temp_list[0]),headers=headers).text)
     #     info_list.append("http://www.jobkorea.co.kr"+bsObject.find("div",{'class':'corp-info'}).find("a").get('href'))
@@ -43,7 +43,7 @@ for temp_list in company_list:
     #     print(e)
     #     info_list.append("")
 
-    #크레딧잡
+    # #크레딧잡
     # try:
     #     company_uri="https://kreditjob.com/company/"+requests.get("https://kreditjob.com/api/search/autocomplete?q="+parse.quote(temp_list[0])+"&index=0&size=1").json()['docs'][0]['PK_NM_HASH']
     #     info_list.append(company_uri)
@@ -54,6 +54,3 @@ for temp_list in company_list:
 
     temp_list.append(info_list)
 
-for company in company_list:
-    for site_info in company[1]:
-        print(site_info)
