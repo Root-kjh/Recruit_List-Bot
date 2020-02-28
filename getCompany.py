@@ -1,18 +1,9 @@
 import requests
 from urllib import parse
 from bs4 import BeautifulSoup
-from selenium import webdriver
-
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('window-size=1920x1080')
-options.add_argument("disable-gpu")
-options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
-driver_path_test="C:\bot-sw\chromedriver.exe"
-driver_path_server="/sw/bot-sw/chromedriver"
-driver=webdriver.Chrome(driver_path_test,chrome_options=options)
 
 company_count=800
+company_count=5
 headers = {'User-Agent': 'Mozilla/5.0'}
 
 post_data={'al_eopjong_gbcd':'11111','eopjong_gbcd_list':'11111','eopjong_gbcd':'1','eopjong_cd':'11111','pageUnit':company_count}
@@ -27,19 +18,42 @@ print(company_list)
 
 for temp_list in company_list:
     info_list=list()
-    try:
-        bsObject=BeautifulSoup(requests.urlopen("http://www.saramin.co.kr/zf_user/search/company?searchword="+parse.quote(temp_list[0])))
-        info_list.append("http://www.saramin.co.kr"+bsObject.find("a",{'class':'company_popup'}).get('href'))
-    except:
-        info_list.append("")
-    try:
-        bsObject=BeautifulSoup(requests.get("https://www.jobplanet.co.kr/search?query="+parse.quote(temp_list[0]),headers=headers).text)
-        info_list.append("http://www.jobplanet.co.kr"+bsObject.find("a",{'class':'tit'}).get('href'))
-    except Exception as e:
-        print(e)
-        info_list.append("")
-    info_list.append("http://www.jobkorea.co.kr/Search/?stext="+parse.quote(temp_list[0]))
+    print(temp_list[0])
+
+    #사람인
+    # try:
+    #     bsObject=BeautifulSoup(requests.urlopen("http://www.saramin.co.kr/zf_user/search/company?searchword="+parse.quote(temp_list[0])))
+    #     info_list.append("http://www.saramin.co.kr"+bsObject.find("a",{'class':'company_popup'}).get('href'))
+    # except:
+    #     info_list.append("")
+    
+    #잡플레닛
+    # try:
+    #     bsObject=BeautifulSoup(requests.get("https://www.jobplanet.co.kr/search?query="+parse.quote(temp_list[0]),headers=headers).text)
+    #     info_list.append("http://www.jobplanet.co.kr"+bsObject.find("a",{'class':'tit'}).get('href'))
+    # except Exception as e:
+    #     print(e)
+    #     info_list.append("")
+
+    #잡코리아
+    # try:
+    #     bsObject=BeautifulSoup(requests.get("http://www.jobkorea.co.kr/Search/?stext="+parse.quote(temp_list[0]),headers=headers).text)
+    #     info_list.append("http://www.jobkorea.co.kr"+bsObject.find("div",{'class':'corp-info'}).find("a").get('href'))
+    # except Exception as e:
+    #     print(e)
+    #     info_list.append("")
+
+    #크레딧잡
+    # try:
+    #     company_uri="https://kreditjob.com/company/"+requests.get("https://kreditjob.com/api/search/autocomplete?q="+parse.quote(temp_list[0])+"&index=0&size=1").json()['docs'][0]['PK_NM_HASH']
+    #     info_list.append(company_uri)
+    # except Exception as e:
+    #     print(e)
+    #     info_list.append("")
+
+
     temp_list.append(info_list)
 
 for company in company_list:
-    print(company)
+    for site_info in company[1]:
+        print(site_info)
