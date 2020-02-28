@@ -20,12 +20,13 @@ for temp_list in company_list:
     info_list=list()
     print(temp_list[0])
 
-    # #사람인
-    # try:
-    #     bsObject=BeautifulSoup(requests.urlopen("http://www.saramin.co.kr/zf_user/search/company?searchword="+parse.quote(temp_list[0])))
-    #     info_list.append("http://www.saramin.co.kr"+bsObject.find("a",{'class':'company_popup'}).get('href'))
-    # except:
-    #     info_list.append("")
+    #사람인
+    try:
+        bsObject=BeautifulSoup(requests.get("http://www.saramin.co.kr/zf_user/search/company?searchword="+parse.quote(temp_list[0]),headers=headers).text)
+        info_list.append("http://www.saramin.co.kr"+bsObject.find("div",{'class':'content'}).find("div",{'class':'item_corp'}).find("a").get('href'))
+    except Exception as e:
+        print(e)
+        info_list.append("")
     
     # #잡플레닛
     # try:
@@ -54,3 +55,5 @@ for temp_list in company_list:
 
     temp_list.append(info_list)
 
+for temp_list in company_list:
+    print(temp_list)
