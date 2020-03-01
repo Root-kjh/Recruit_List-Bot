@@ -48,46 +48,46 @@ def getCompanyInfo(companyName):
 def getRecruitList(companyName):
     Recruit_List=dict()
 
-    # # 사람인
-    # try:
-    #     hostUri="http://www.saramin.co.kr"
-    #     bsObject=BeautifulSoup(requests.get(hostUri+"/zf_user/search/company?searchword="+parse.quote(companyName),headers=headers).text)
-    #     bsObject=BeautifulSoup(requests.get(hostUri+bsObject.find("div",{'class':'content'}).find("div",{'class':'item_corp'}).find("a",{'class':'cnt_ongoing'}).get('href')).text)
-    #     for Recruit in bsObject.find("ul",{"class":"list_employ"}).findAll("a",{'class':'tit'}):
-    #         Recruit_List.update({Recruit.text:hostUri+Recruit.get('href')})
-    # except Exception as e:
-    #     print(e)
+    # 사람인
+    try:
+        hostUri="http://www.saramin.co.kr"
+        bsObject=BeautifulSoup(requests.get(hostUri+"/zf_user/search/company?searchword="+parse.quote(companyName),headers=headers).text)
+        bsObject=BeautifulSoup(requests.get(hostUri+bsObject.find("div",{'class':'content'}).find("div",{'class':'item_corp'}).find("a",{'class':'cnt_ongoing'}).get('href')).text)
+        for Recruit in bsObject.find("ul",{"class":"list_employ"}).findAll("a",{'class':'tit'}):
+            Recruit_List.update({Recruit.text:hostUri+Recruit.get('href')})
+    except Exception as e:
+        print(e)
     
-    # # 잡플레닛
-    # try:
-    #     hostUri="https://www.jobplanet.co.kr"
-    #     bsObject=BeautifulSoup(requests.get(hostUri+"/search?query="+parse.quote(companyName),headers=headers).text)
-    #     bsObject=BeautifulSoup(requests.get(hostUri+bsObject.find("a",{'class':'tit'}).get('href').replace("info","job_postings")).text)
-    #     for Recruit in bsObject.find("div",{"class":"job_items"}).findAll("div",{"class":"item_wrap"}):
-    #         RecruitName=Recruit.find("h2",{"class":"tit"}).text
-    #         RecruitUri=hostUri+Recruit.find("a",{"class":"job_item"}).get('href')
-    #         Recruit_List.update({RecruitName:RecruitUri})
-    # except Exception as e:
-    #     print(e)
+    # 잡플레닛
+    try:
+        hostUri="https://www.jobplanet.co.kr"
+        bsObject=BeautifulSoup(requests.get(hostUri+"/search?query="+parse.quote(companyName),headers=headers).text)
+        bsObject=BeautifulSoup(requests.get(hostUri+bsObject.find("a",{'class':'tit'}).get('href').replace("info","job_postings")).text)
+        for Recruit in bsObject.find("div",{"class":"job_items"}).findAll("div",{"class":"item_wrap"}):
+            RecruitName=Recruit.find("h2",{"class":"tit"}).text
+            RecruitUri=hostUri+Recruit.find("a",{"class":"job_item"}).get('href')
+            Recruit_List.update({RecruitName:RecruitUri})
+    except Exception as e:
+        print(e)
 
-    # # 잡코리아
-    # try:
-    #     hostUri="http://www.jobkorea.co.kr"
-    #     bsObject=BeautifulSoup(requests.get(hostUri+"/Search/?stext="+parse.quote(companyName),headers=headers).text)
-    #     bsObject=BeautifulSoup(requests.get(hostUri+BeautifulSoup(requests.get(hostUri+bsObject.find("div",{'class':'corp-info'}).find("a").get('nav-src')).text).findAll("button",{"class":"btn-post-nav"})[1].get("src")).text)
-    #     for Recruit in bsObject.findAll("a"):
-    #         Recruit_List.update({Recruit.text:(hostUri+Recruit.get('href'))})
-    # except Exception as e:
-    #     print(e)
+    # 잡코리아
+    try:
+        hostUri="http://www.jobkorea.co.kr"
+        bsObject=BeautifulSoup(requests.get(hostUri+"/Search/?stext="+parse.quote(companyName),headers=headers).text)
+        bsObject=BeautifulSoup(requests.get(hostUri+BeautifulSoup(requests.get(hostUri+bsObject.find("div",{'class':'corp-info'}).find("a").get('nav-src')).text).findAll("button",{"class":"btn-post-nav"})[1].get("src")).text)
+        for Recruit in bsObject.findAll("a"):
+            Recruit_List.update({Recruit.text:(hostUri+Recruit.get('href'))})
+    except Exception as e:
+        print(e)
 
-    # # 원티드
-    # try:
-    #     hostUri="https://www.wanted.co.kr"
-    #     jsObject=requests.get(hostUri+"/api/v4/search?1583077171352&job_sort=job.latest_order&locations=seoul&years=0&country=kr&query="+parse.quote(companyName),headers=headers).json()
-    #     for Recruit in jsObject['data']['jobs']:
-    #         Recruit_List.update({Recruit['position']:hostUri+"/wd/"+str(Recruit['id'])})
-    # except Exception as e:
-    #     print(e)
+    # 원티드
+    try:
+        hostUri="https://www.wanted.co.kr"
+        jsObject=requests.get(hostUri+"/api/v4/search?1583077171352&job_sort=job.latest_order&locations=seoul&years=0&country=kr&query="+parse.quote(companyName),headers=headers).json()
+        for Recruit in jsObject['data']['jobs']:
+            Recruit_List.update({Recruit['position']:hostUri+"/wd/"+str(Recruit['id'])})
+    except Exception as e:
+        print(e)
 
     return Recruit_List
 
@@ -106,7 +106,29 @@ for temp_list in company_list:
     print(temp_list[0])
     document=dict()
     document.update({"companyName":temp_list[0]})
-    # company_list=getCompanyInfo(temp_list[0])
+    company_list=getCompanyInfo(temp_list[0])
     Recruit_list=getRecruitList(temp_list[0])
-    document.update(Recruit_list)
+    for companySite in company_list:
+        try:
+            pass
+        except:
+            pass
+        
+        try:
+            pass
+        except:
+            pass
+
+        try:
+            pass
+        except:
+            pass
+
+        try:
+            pass
+        except:
+            pass
+
+    document.update({"companyInfos":company_list})
+    document.update({"recruitmentNotices":Recruit_list})
     print(document)
