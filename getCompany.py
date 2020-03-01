@@ -80,18 +80,14 @@ def getRecruitList(companyName):
     # except Exception as e:
     #     print(e)
 
-    # 원티드
-    try:
-        hostUri="https://www.wanted.co.kr"
-        print(hostUri+"/search?query="+parse.quote(companyName))
-        bsObject=BeautifulSoup(requests.get(hostUri+"/search?query="+parse.quote(companyName),headers=headers).text)
-        print(bsObject.findAll("a",{"class":"_3D4OeuZHyGXN7wwibRM5BJ"}))
-        for Recruit in bsObject.findAll("a",{"class":"_3D4OeuZHyGXN7wwibRM5BJ"}):
-            pass
-    except Exception as e:
-        print(e)
-
-    # 로켓펀치
+    # # 원티드
+    # try:
+    #     hostUri="https://www.wanted.co.kr"
+    #     jsObject=requests.get(hostUri+"/api/v4/search?1583077171352&job_sort=job.latest_order&locations=seoul&years=0&country=kr&query="+parse.quote(companyName),headers=headers).json()
+    #     for Recruit in jsObject['data']['jobs']:
+    #         Recruit_List.update({Recruit['position']:hostUri+"/wd/"+str(Recruit['id'])})
+    # except Exception as e:
+    #     print(e)
 
     return Recruit_List
 
